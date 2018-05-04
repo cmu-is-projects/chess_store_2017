@@ -1,0 +1,31 @@
+<% unless flash[:error] %>
+  <br><br>
+<% end %>
+<h5>Please use your username and password to login to our system.</h5>
+<br>
+<div class="row centered">
+  <div class="col s10"> 
+    <%= form_tag sessions_path do %>
+      <div class="control-group">
+        <%= label_tag :username, "Username" %>
+        <div class="controls">
+          <%= text_field_tag :username, params[:username] %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <%= label_tag :password %>
+        <div class="controls">
+          <%= password_field_tag :password %>
+        </div>
+      </div>
+      
+      <div class="actions">
+      	<button class="btn waves-effect waves-light">
+          <%= submit_tag "Login"%>
+				</button>
+      </div>
+    <% end %>
+  </div>
+</div>
+<br><br><br><br>

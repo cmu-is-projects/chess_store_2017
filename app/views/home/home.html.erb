@@ -1,0 +1,29 @@
+<h3>Welcome to the Chess Store!</h3>
+
+<% if !logged_in? || current_user.role?(:customer) %>
+	<%= image_tag 'background.jpg', class: "left" %>
+	<p> We are Alex and Mark Heimann, USCF and FIDE Chess
+	Masters who have graduated from college and want to 
+	help you! Our goal is help you develop your chess 
+	skills and provide you with the necessary items to do so. 
+	That's why we are committed to giving you the best products
+	at the most affordable prices. If your school or 
+	institution needs chess items, then this is the store
+	for you! Happy shopping! </p>
+	<% if !logged_in? %>
+		<b>Note: Please <%= link_to "log in", login_path %> to our 
+		   system or <%= link_to "create an account", new_user_path %> 
+			 in order to add a school.</b> 
+	<% elsif current_user.role?(:customer) %>
+		<b><%= link_to "Click here to get started!", items_path %></b>
+	<% end %>
+<% elsif current_user.role?(:manager) %>
+	<%= render partial: 'reorder_list' %>
+<% elsif current_user.role?(:shipper) %>
+	<h4>Unshipped Order Items:</h4>
+	<%= render partial: 'shipper_list' %>
+<% elsif current_user.role?(:admin) %>
+	<%= render partial: 'reorder_list' %>
+	<h4>Unshipped Order Items:</h4>
+	<%= render partial: 'shipper_list' %>
+<% end %>

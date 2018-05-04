@@ -1,0 +1,29 @@
+<p><h3>Order Details</h3>
+<% if @unshipped_order && (current_user.role?(:customer) || current_user.role?(:admin)) %>
+    <a class="waves-effect waves-red btn tooltipped" data-position="top" data-delay="10" data-tooltip="Are you sure?" <%= link_to "Cancel Order", @order, method: :delete %> </a>
+<% end %>
+<p>
+<% if current_user.role?(:customer) %>
+  Order #<%= @order.id %> | Ordered on: <%= @order.date.strftime("%b %-d, %Y") %> | Shipped on: 
+<% elsif current_user.role?(:shipper) %>
+  Order #<%= @order.id %> | Ordered by: <%= @order.user.proper_name %> <br>
+  Ordered on: <%= @order.date.strftime("%b %-d, %Y") %> | Shipped on: 
+<% else %>
+  Order #<%= @order.id %> | Ordered by: <%= link_to @order.user.proper_name, user_path(@order.user) %> <br>
+  Ordered on: <%= @order.date.strftime("%b %-d, %Y") %> | Shipped on: 
+<% end %>
+<% if @unshipped_order %> 
+  not yet shipped
+<% else %>
+  <%= @order.order_items.to_a.max.shipped_on.strftime("%b %-d, %Y") %>
+<% end %></p>
+
+<div id="order-info">
+  <%= render partial: 'shipping_address' %>
+  <%= render partial: 'payment_method' %>
+  <%= render partial: 'order_summary' %>
+</div>
+
+<div id="order-items-list">
+  <%= render partial: 'order_items_list' %>
+</div>

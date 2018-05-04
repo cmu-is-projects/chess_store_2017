@@ -1,0 +1,39 @@
+<!-- Show the details of the item -->
+<% unless @item.photo_url.nil? %>
+	<div id="img_resize">
+		<%= image_tag @item.photo_url, class: "responsive-img" %>
+	</div>
+<% else %>
+	<%= image_tag 'img_not_available.png', class: "responsive-img" %>
+<% end %>
+<h3><%= @item.name %></h3>
+<% if !@item.active %>
+  <h5><b>INACTIVE</b></h5>
+<% else %>
+	<% if @item.inventory_level == 0 %>
+		<td>OUT OF STOCK</td>
+	<% else %>
+		<% if logged_in? && (current_user.role?(:admin) || current_user.role?(:customer)) %>
+			<td><%= button_to "Add to Cart", add_to_cart_path(@item) %></td>
+		<% end %>
+	<% end %>
+<% end %>
+<div id="price">
+	<%= render partial: 'price' %>
+</div>
+<p><b>Category:</b> <%= @item.category.capitalize %></p>
+<p><b>Color:</b> <%= @item.color %></p>
+<p><b>Weight:</b> <%= @item.weight.round(2) %> lbs.</p>
+<p><b>Description:</b> <%= @item.description %></p>
+<% unless !logged_in? || current_user.role?(:customer) %>
+	<%= render partial: 'item_levels' %>
+<% end %>
+<%= render partial: 'price_history' %>
+<p></p> <!-- Add a blank line for formatting issues -->
+<%= render partial: 'similar_items' %>
+<p></p> <!-- Add a blank line for formatting issues -->
+<!-- Buttons for editing and deleting the item -->
+<% if logged_in? && (current_user.role?(:admin) || current_user.role?(:manager)) %>
+	<a class="waves-effect waves-teal btn" <%= link_to "Edit", edit_item_path(@item) %> </a>
+	<a class="waves-effect waves-red btn tooltipped" data-position="top" data-delay="10" data-tooltip="Are you sure?" <%= link_to "Delete", @item, method: :delete %> </a>
+<% end %>

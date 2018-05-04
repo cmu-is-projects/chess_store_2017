@@ -1,0 +1,20 @@
+<h3><%= @user.proper_name %></h3>
+<% if !@user.active %>
+  <h5><b>INACTIVE</b></h5>
+<% end %>
+<p><b>Username: </b><%= @user.username %></p>
+<p><b>Phone: </b><%= @reformatted_phone %></p>
+<p><b>Email: </b><%= mail_to(@user.email, @user.email, encode: "javascript") %></p>
+<em>A valued Chess Store <%= @user.role %> since <%= Date.current.year %>.</em>
+<br><br>
+
+<% if @user.role?(:customer) || @user.role?(:admin) %>
+  <h5>Orders</h5>
+  <%= render partial: 'order_table'%>
+<% end %>
+
+<!-- Managers can only edit other employees, not customers -->
+<% unless current_user.role?(:manager) && @user.role?(:customer) %>
+  <br>
+  <a class="waves-effect waves-teal btn" <%= link_to "Edit Info", edit_user_path(@user) %> </a>
+<% end %>

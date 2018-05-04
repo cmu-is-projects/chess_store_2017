@@ -1,0 +1,28 @@
+<% unless @school_orders.empty? %>
+  <table class="bordered highlight centered responsive-table">
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>Date</th>
+        <th>User</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for order in @school_orders %>
+        <tr>
+          <td><%= link_to order.id, order_path(order) %>
+          <td><%= order.date.strftime("%b %-d, %Y") %></td>
+          <% if logged_in? && !(current_user.role?(:customer) || current_user.role?(:shipper)) %>
+            <td><%= link_to order.user.proper_name, user_path(order.user) %> </td>
+          <% else %>
+            <td><%= order.user.proper_name %> </td>
+          <% end %>
+          <td><%= number_to_currency(order.grand_total) %> </td> 
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  No associated orders exist in our system.
+<% end %>

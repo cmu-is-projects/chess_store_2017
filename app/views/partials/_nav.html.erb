@@ -1,0 +1,29 @@
+<div class="nav-wrapper teal">
+  <div class="top-bar">
+    <a class="brand-logo" <%= link_to "Alex & Mark's Chess Store", home_path %> </a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <% if logged_in? %>
+        <% if current_user.role?(:customer) || current_user.role?(:shipper) %>
+          <li><%= link_to "Browse Items", items_path %></li>
+          <% if current_user.role?(:customer) %>
+            <li><%= link_to "Add School", new_school_path %></li>
+            <li><%= link_to "View Cart (#{session[:cart].length})", view_cart_path %></li>
+          <% end %>
+        <% elsif current_user.role?(:admin) || current_user.role?(:manager) %>
+          <% if current_user.role?(:admin) %>
+            <li><%= link_to "View Cart (#{session[:cart].length})", view_cart_path %></li>
+          <% end %>
+          <li><a class="dropdown-button" data-activates="menu_dropdown">Menu<i class="material-icons right">arrow_drop_down</i></a></li>
+          <li><a class="dropdown-button" data-activates="quick_options_dropdown">Quick Options<i class="material-icons right">arrow_drop_down</i></a></li>
+        <% end %>
+        <!-- Dropdown Content -->
+        <%= render partial: 'partials/dropdown_content' %>
+        <li><a class="dropdown-button" data-activates="account_dropdown">Welcome, <%= current_user.first_name %><i class="material-icons right">arrow_drop_down</i></a></li>
+      <% elsif !logged_in? %>
+        <li><%= link_to "Browse Items", items_path %></li>
+        <li> <%= link_to "Create Account", new_user_path %>
+        <li> <%= link_to "Login", login_path %> </li>
+      <% end%>  
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,256 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_self
+ *= require simple_form
+ */
+
+.tl_name {
+  width: 225px;
+  display: block;
+  position: absolute;
+}
+
+.tl_date {
+  width: 65px;
+  display: block;
+  position: absolute;
+  margin-left: 250px;
+}
+
+.tl_controls {
+  width:  68px;
+  display: block;
+  margin-left: 330px;
+}
+
+.project_item {
+  background-color: #d1ecfb;
+  width: 400px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: 1px solid blue;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.supertiny {
+  font-size:5px;
+  text-decoration:none;
+}
+
+.add_link {
+  font-size:75%;
+  font-style: normal;
+  font-weight: normal;
+}
+
+#main_content {
+  margin-top: 10px;
+}
+
+#copy {
+  font-size: 85%;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table th.centered, table td.centered {
+    text-align: center;
+}
+
+.note {
+  font-style: italic;
+  font-size: 80%;
+}
+li.well {
+  list-style-type: none;
+  margin-left: -10px;
+}
+
+.pagination ul > li > a, .pagination ul > li > span {
+  border-left-width: 1px;
+  margin-top: 5px;
+}
+
+label {
+  padding-right: 4px;
+}
+
+#error_explanation {
+  background-color: #FCC;
+  border: solid 1px #C66;
+  width: 85%;
+	color: #800000;
+  padding: 5px 8px;
+  margin-top: 10px;
+  margin-right: auto;
+  font-style: italic;
+}
+
+.notice {
+  background-color: #CFC;
+  border: solid 1px #6C6;
+	color: #00AB56;
+  padding: 5px 8px;
+  margin-top: 10px;
+  margin-right: auto;
+  font-style: italic;
+}
+
+.alert {
+  background-color: #FCC;
+  border: solid 1px #C66;
+	color: #800000;
+  padding: 5px 8px;
+  margin-top: 10px;
+  margin-right: auto;
+  font-style: italic;
+}
+
+img.left {
+	float: left;
+	padding-right: 15px;
+	padding-bottom: 10px;
+	border: 0px;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background: repeating-linear-gradient(
+              45deg,
+              rgba(145, 102, 36, 0.5),
+              rgba(145, 102, 36, 0.5) 10px,
+              rgba(169, 123, 54, 0.5) 10px,
+              rgba(169, 123, 54, 0.5) 20px);
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+        
+.pagination a li.active {
+  color: #fff;
+}
+
+.content {
+  background: rgba(255, 255, 255, 0.5);
+  padding: 2%;
+}
+
+th {
+  text-decoration: underline;
+}
+
+.price-table {
+  padding: auto;
+  margin: auto;
+  margin-right: 30%;
+}
+
+footer {
+   text-align: left;
+   padding-left: 5px;;
+}
+
+.modal { 
+  height: 63% !important ; 
+}
+
+/* http://stackoverflow.com/questions/41406689/change-the-color-of-tab-text-and-the-underline-in-materialize-framework */
+
+.tabs .tab a{
+    color:#009688 !important;
+}
+
+.tabs .tab a:hover {
+    background-color:#eee !important;
+    color:#4db6ac !important;
+}
+
+.tabs .tab a.active {
+    background-color:#009688 !important;
+    color:#fff !important;
+}
+
+.tabs .indicator {
+    background-color:#80cbc4 !important;
+}
+
+#order-info {
+  float: left;
+  position: left;
+}
+
+#order-items-list {
+  float: right;
+  width: 60%;
+}
+
+#item_show {
+  float: left;
+  position: left;
+  width: 50%;
+  padding-right: 1em;
+}
+
+#new_price {
+  float: right;
+  width: 50%;
+  padding: 1em;
+  border: 1px solid black;
+  border-style: dotted;
+}
+
+#img_resize {
+    max-width:  10%;
+    max-height: 10%;
+}
+
+#checkout_button {
+  float: right;
+  position: right;
+  padding-top: 11%;
+  padding-right: 10px;
+}
+
+#order_cart_show {
+  float: left;
+  width: 50%;
+}
+
+#order_form {
+  padding-left: 5%;
+  float: right;
+  width: 50%;
+}
+
+.card-content {
+  padding-top: 5% !important;
+}
+
+.card-action {
+  padding: 2% !important;
+  text-align: center;
+}
+
+.row {
+  padding-left: 10px;
+  padding-right: 10px;
+}

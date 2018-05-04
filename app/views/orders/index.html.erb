@@ -1,0 +1,32 @@
+<% if current_user.role?(:customer) %>
+  <p><h3>Your Orders</h3></p>
+<% else %>
+  <p><h3>Orders</h3></p>
+<% end %>
+
+<div class="row">
+  <div class="col s12">
+    <ul class="tabs tabs-fixed-width">
+      <li class="tab col s3"><a href="#unshipped">Unshipped</a></li>
+      <li class="tab col s3"><a href="#all">All</a></li>
+    </ul>
+  </div>
+  <div id="unshipped" class="col s12">
+    <% unless @not_shipped_orders.empty? %>
+      <%= render partial: 'not_shipped_orders' %>
+    <% else %>
+      <% if current_user.role?(:customer) %>
+        All of your orders have been shipped. Enjoy!
+      <% else %>
+        All orders have been shipped! Good job!
+      <% end %>
+    <% end %>
+  </div>
+  <div id="all" class="col s12">
+    <% unless @all_orders.empty? %>
+      <%= render partial: "all_orders" %>
+    <% else %>
+      <p>There are no orders in the system at this time.</p>
+    <% end %>
+  </div>
+</div>

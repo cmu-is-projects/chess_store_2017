@@ -1,0 +1,40 @@
+<div id="unshipped_orders">
+  <% unless @not_shipped_orders.empty? %>
+    <table class="bordered highlight centered responsive-table">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Item Name</th>
+          <th>Quantity</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for order in @not_shipped_orders %>
+          <% for oi in order.order_items %>
+            <tr>
+              <% if oi.shipped_on.nil? %>
+                <% if current_user.role?(:shipped) %>
+                  <td><%= order.id %></td>
+                   <td><%= oi.item.name %></td>
+                <% else %>
+                  <!-- the only other person seeing this will be an admin -->
+                  <td><%= link_to order.id, order_path(order) %></td>
+                  <td><%= link_to oi.item.name, item_path(oi.item) %></td>
+                <% end %>
+                <td><%= oi.quantity %></td>
+                <td>
+                  <%= link_to(toggle_path(oi), id: 'mark_shipped_button', class: 'button tiny radius', remote: true) do %>
+                    Mark as Shipped
+                  <% end %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    All orders have been shipped! Good job!
+  <% end %>
+</div>

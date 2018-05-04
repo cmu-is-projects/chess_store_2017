@@ -1,0 +1,32 @@
+<h4>Reorder List:</h4>
+<% unless @items_to_reorder.empty? %>
+  <table class="bordered highlight centered responsive-table">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Inventory</th>
+        <th>Reorder Level</th>
+        <% if current_user.role?(:admin) %>
+          <th></th>
+        <% end %>
+        <th></th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <% for item in @items_to_reorder %>
+      <tr>
+        <td><%= link_to item.name, item_path(item) %></td>
+        <td><%= number_with_delimiter(item.inventory_level) %></td>
+        <td><%= number_with_delimiter(item.reorder_level) %></td>
+        <% if current_user.role?(:admin) %>
+          <td><%= button_to "Add to Cart", add_to_cart_path(item) %></td>
+        <% end %>
+        <td><a class="waves-effect waves-teal btn" <%= link_to "Edit", edit_item_path(item) %> </a></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %> 
+  No items need to be reordered at this time.
+<% end %>

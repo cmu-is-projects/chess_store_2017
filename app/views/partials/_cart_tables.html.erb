@@ -1,0 +1,39 @@
+<table class = "bordered centered responsive-table">
+  <thead>
+    <th>Item</th>
+    <th>Price</th>
+    <th>Quantity</th>
+    <th>Subtotal</th>
+    <th></th>
+  </thead>
+  <tbody>
+    <% for i in @cart_items %>
+      <tr>
+        <td><%= link_to i.item.name, item_path(i.item) %></td>
+        <td><%= number_to_currency(i.item.current_price) %>
+        <td>
+          <%= button_to "+", add_to_cart_path(i.item.id) %>
+          <%= i.quantity %>
+          <%= button_to "-", remove_one_from_cart_path(i.item.id)%>
+        </td>
+        <td><%= number_to_currency(i.item.current_price * i.quantity) %></td>
+        <td><%= button_to "Delete", delete_from_cart_path(i.item.id)%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+
+<table class="col s3">
+  <tbody>
+    <tr>
+      <td><b>Subtotal: </b></td><td><%= number_to_currency(cart_cost) %></td>
+    </tr>
+    <tr>
+      <td><b>Shipping Cost: </b></td><td><%= number_to_currency(shipping_cost) %></td>
+    </tr>
+    <tr>
+      <td><b>Grand Total: </b></td><td><%= number_to_currency(cart_cost + shipping_cost) %></td>
+    </tr>
+  </tbody>
+</table>

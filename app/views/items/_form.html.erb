@@ -1,0 +1,88 @@
+<div class="row">
+	<%= simple_form_for @item, :html => { :multipart => true } do |f| %>
+
+		<!-- Display errors, if any -->
+		<% if @item.errors.any? %>
+			<div id="error_explanation">
+				<h6><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h6>
+				<% @item.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</div>
+  	<% end %>
+		
+		<!-- Form for adding a new item into the system -->
+		<div class="row">
+			<div class="input-field col s10">
+				<i class="material-icons prefix">info_outline</i>
+				<%= f.label :name %>
+    		<%= f.text_field :name %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s10">
+				<i class="material-icons prefix">description</i>
+				<%= f.label :description %>
+    		<%= f.text_field :description %>
+			</div>
+    </div>
+		<div class="row">
+			<div class="input-field col s10">
+				<i class="material-icons prefix">list</i>
+				<%= f.label :category %><br></br>
+				<%= f.select :category, Item::CATEGORIES %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s10">
+				<i class="material-icons prefix">color_lens</i>
+				<%= f.label :color %>
+    		<%= f.text_field :color %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s10">
+				<i class="material-icons prefix">fitness_center</i>
+				<%= f.label :weight %>
+    		<%= f.number_field :weight %>
+			</div>
+		</div>
+		<!-- Only show the inventory level field if creating a new item -->
+		<!-- Editing inventory level is done by making purchases -->
+		<% unless @item.save %>
+			<div class="row">
+				<div class="input-field col s10">
+					<i class="material-icons prefix">store</i>
+					<%= f.label :inventory_level %>
+					<%= f.number_field :inventory_level %>
+				</div>
+			</div>
+		<% end %>
+		<div class="row">
+			<div class="input-field col s10">
+				<i class="material-icons prefix">add_shopping_cart</i>
+				<%= f.label :reorder_level %>
+    		<%= f.number_field :reorder_level %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s10">
+				<%= f.input :active, as: :boolean %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s10">
+				<%= f.label :photo %><br><br>
+				<%= f.file_field :photo %>
+			</div>
+		</div>
+		<div class ="row">
+			<div class="input-field col s10">
+				<button class="btn waves-effect waves-light">
+					<i class="material-icons right">send</i>
+					<%= f.submit %>
+				</button>
+			</div>
+		</div>
+	<% end %>
+</div>

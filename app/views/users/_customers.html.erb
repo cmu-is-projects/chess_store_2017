@@ -1,0 +1,34 @@
+<!-- Display a table showing information of all the boards -->
+<table class="bordered highlight responsive-table">
+	<thead>
+		<tr>
+			<th>Name (Username)</th>
+      <th>Email</th>
+			<th>Active</th>
+			<% if current_user.role?(:admin) %>
+				<th></th>
+			<% end %>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% for user in @customers %>
+      <tr>
+        <td><%= link_to user.name, user_path(user) %><%= " (#{user.username})" %></td>
+        <td><%= mail_to(user.email, user.email, encode: "javascript") %></td>
+        <td>
+          <% if user.active? %>
+            Y
+          <% else %>
+            N
+          <% end %>
+        </td>
+				<% if current_user.role?(:admin) %>
+					<td><a class="waves-effect waves-teal btn" <%= link_to "Edit", edit_user_path(user) %> </a></td>
+				<% end %>
+      </tr>
+		<% end %>
+	</tbody>
+</table>
+
+<%= will_paginate @customers %>

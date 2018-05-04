@@ -1,0 +1,37 @@
+<% unless @user_orders.empty? %>
+  <table class="bordered highlight centered responsive-table">
+    <thead>
+      <tr>
+        <td>Order ID</th>
+        <th>Date</th>
+        <th>School</th>
+        <th>Amount</th>
+        <th>Shipped On</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for order in @user_orders %>
+        <tr>
+          <td><%= link_to order.id, order_path(order) %>
+          <td><%= order.date.strftime("%b %-d, %Y") %></td>
+          <% if logged_in? && !(current_user.role?(:customer) || current_user.role?(:shipper)) %>
+            <td><%= link_to order.school.name, school_path(order.school) %> </td>
+          <% else %>
+            <td><%= order.school.name %> </td>
+          <% end %>
+          <td><%= number_to_currency(order.grand_total) %> </td> 
+          <% if order.order_items.to_a.max.shipped_on.nil? %>
+            <td>---</td>
+          <% else %>
+            <td><%= order.order_items.to_a.max.shipped_on.strftime("%b %-d, %Y") %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  No associated orders exist in our system.
+<% end %>
+
+<!-- Add the pagination using will_paginate gem -->
+<%= will_paginate @user_orders %>
